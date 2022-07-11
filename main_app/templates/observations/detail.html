@@ -13,6 +13,10 @@
     <p>Description: {{ observation.description }}</p>
     <p>Details: {{ observation.details }}</p>
   </div>
+  <div class="card-action">
+    <a href="{% url 'observations_update' observation.id %}">Edit</a>
+    <a href="{% url 'observations_delete' observation.id %}">Delete</a>
+  </div>
 </div>
 
 {% endblock %}

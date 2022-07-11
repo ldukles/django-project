@@ -27,8 +27,10 @@
             </li>
           </ul>
           <ul class="right">
-            <li><a href="/about">About</a></li>
-            <li><a href="/observations">View All Observations</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <!-- new link below -->
+            <li><a href="{% url 'observations_create' %}">Add An Observation</a></li>
+            <li><a href="{% url 'index' %}">View All My Observations</a></li>
           </ul>
         </div>
       </nav>
