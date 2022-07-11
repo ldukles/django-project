@@ -10,5 +10,11 @@ urlpatterns = [
     path('observations/create/', views.ObservationCreate.as_view(), name='observations_create'),
     path('observations/<int:pk>/update/', views.ObservationUpdate.as_view(), name='observations_update'),
     path('observations/<int:pk>/delete/', views.ObservationDelete.as_view(), name='observations_delete'),
-
+    path('observations/<int:observation_id>/assoc_category/<int:category_id>/', views.assoc_category, name='assoc_category'),
+    path('observations/<int:observation_id>/assoc_category/<int:category_id>/delete', views.assoc_category_delete, name='assoc_category_delete'),
+    path('categorys/', views.CategoryList.as_view(), name='categorys_index'),
+    path('categorys/<int:pk>/', views.CategoryDetail.as_view(), name='categorys_detail'),
+    path('categorys/create/', views.CategoryCreate.as_view(), name='categorys_create'),
+    path('categorys/<int:pk>/update/', views.CategoryUpdate.as_view(), name='categorys_update'),
+    path('categorys/<int:pk>/delete/', views.CategoryDelete.as_view(), name='categorys_delete'),
 ]
