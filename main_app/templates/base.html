@@ -18,19 +18,20 @@
     />
   </head>
   <body>
-    <header class="navbar-fixed">
+    <header class="navbar-fixed light-green darken-2">
       <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper light-green darken-2">
           <ul>
             <li>
-              <a href="/" class="left brand-logo">Naturalist</a>
+              <a href="/" class="left brand-logo light-green darken-2">Naturalist</a>
             </li>
           </ul>
           <ul class="right">
             <li><a href="{% url 'about' %}">About</a></li>
+            <!-- <li><a href="{% url 'index' %}">All Observations</a></li> -->
             {% if user.is_authenticated %}
             <li><a href="{% url 'observations_create' %}">Add An Observation</a></li>
-            <li><a href="{% url 'index' %}">View All My Observations</a></li>
+            <li><a href="{% url 'index' %}">My Observations</a></li>
             <li><a href="{% url 'categorys_index' %}">View All Categories</a></li>
             <li><a href="{% url 'categorys_create' %}">Add a Category</a></li>
             <li><a href="{% url 'logout' %}">Log Out</a></li>
@@ -43,7 +44,7 @@
       </nav>
     </header>
     <main class="container">{% block content %} {% endblock %}</main>
-    <footer class="page-footer">
+    <footer class="page-footer light-green darken-2">
       <div class="right">All Rights Reserved, © 2022 Naturalist</div>
     </footer>
   </body>

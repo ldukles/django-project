@@ -9,6 +9,7 @@ from django.views.generic.detail import DetailView
 from django.http import HttpResponse
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from .forms import LocationForm
 import uuid
 import boto3
 from .models import Observation, Category, Photo
@@ -25,22 +26,38 @@ def about(request):
   return render(request, 'about.html')
 
 
-# OBSERVATION INDEX
+# MY OBSERVATION INDEX
 @login_required
 def observations_index(request):
     # observations = Observation.objects.all()
     observations = Observation.objects.filter(user=request.user)
     return render(request, 'observations/index.html', { 'observations': observations })
 
+# OBSERVATION INDEX
+# def allobservations_index(request):
+#     # observations = Observation.objects.all()
+#     observations = Observation.objects.all()
+#     return render(request, 'allobservations/allobservations.html', { 'observations': observations })
+
 # INDIVDUAL OBSERVATION DETAIL
 @login_required
 def observations_detail(request, observation_id):
     observation = Observation.objects.get(id=observation_id)
+    location_form = LocationForm()
     categorys_observation_doesnt_have = Category.objects.exclude(id__in = observation.categorys.all().values_list('id'))
     return render(request, 'observations/detail.html', {
-        'observation': observation,
+        'observation': observation, 'location_form': location_form,
         'categorys': categorys_observation_doesnt_have
   })
+
+@login_required
+def add_location(request, observation_id):
+    form = LocationForm(request.POST)
+    if form.is_valid():
+        new_location = form.save(commit=False)
+        new_location.observation_id = observation_id
+        new_location.save()
+    return redirect('detail', observation_id=observation_id)
 
 # ASSOCIATING OBSERVATION WITH CATEGORY
 @login_required
@@ -118,7 +135,7 @@ def signup(request):
 
 class ObservationCreate(LoginRequiredMixin, CreateView):
     model = Observation
-    fields = ['name', 'sciname', 'amount', 'date', 'location', 'description', 'details']
+    fields = ['name', 'sciname', 'amount', 'description', 'details']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -128,7 +145,7 @@ class ObservationCreate(LoginRequiredMixin, CreateView):
 class ObservationUpdate(LoginRequiredMixin, UpdateView):
   model = Observation
   # Let's disallow the renaming of a cat by excluding the name field!
-  fields = ['name', 'sciname', 'amount', 'date', 'location', 'description', 'details']
+  fields = ['name', 'sciname', 'amount', 'description', 'details']
 
 class ObservationDelete(LoginRequiredMixin, DeleteView):
   model = Observation
