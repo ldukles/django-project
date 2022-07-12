@@ -5,7 +5,12 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.http import HttpResponse
-from .models import Observation, Category
+import uuid
+import boto3
+from .models import Observation, Category, Photo
+
+S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
+BUCKET = 'naturalist-avatar'
 
 # HOME VIEW
 def home(request):
@@ -40,6 +45,34 @@ def assoc_category_delete(request, observation_id, category_id):
   Observation.objects.get(id=observation_id).categorys.remove(category_id)
   return redirect('detail', observation_id=observation_id)
 
+# PHOTO UPLOAD
+def add_photo(request, observation_id):
+    # photo-file will be the "name" attribute on the <input type="file">
+    # attempt to collect the photo file data
+    photo_file = request.FILES.get('photo-file', None)
+    # use conditional logic to determine if file is present
+    if photo_file:
+    # if it's present, we will create a reference to the boto3 client
+      s3 = boto3.client('s3')
+      #Create unique ide for each photo file
+      key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+      #upload the photo phile to aws
+      try:
+      # if successful
+        s3.upload_fileobj(photo_file, BUCKET, key)
+        # take the exchanged url and save it to the database
+        url = f"{S3_BASE_URL}{BUCKET}/{key}"
+          # 1. create photo instance with phot model and provide cat_id as foreign key value
+        photo = Photo(url=url, cat_id=observation_id)
+          # 2. save the photo instance to the database
+        photo.save()
+      # print an error message
+      except Exception as error:
+        print('An error occurred uploading file to S3')
+    # redirect the user to the origin page
+        return redirect('detail', observation_id=observation_id)
+    return redirect('detail', observation_id=observation_id)
+  # need a unique "key" for S3 / needs image file extension too 
 
 class ObservationCreate(CreateView):
   model = Observation
