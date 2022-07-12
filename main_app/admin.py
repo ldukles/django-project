@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Observation
+from .models import Observation, Category, Photo
 
 # Register your models here
 admin.site.register(Observation)
+admin.site.register(Category)
+admin.site.register(Photo)

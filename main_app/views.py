@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 from .models import Observation
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.http import HttpResponse
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 import uuid
 import boto3
 from .models import Observation, Category, Photo
@@ -20,12 +24,16 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+
 # OBSERVATION INDEX
+@login_required
 def observations_index(request):
-    observations = Observation.objects.all()
+    # observations = Observation.objects.all()
+    observations = Observation.objects.filter(user=request.user)
     return render(request, 'observations/index.html', { 'observations': observations })
 
 # INDIVDUAL OBSERVATION DETAIL
+@login_required
 def observations_detail(request, observation_id):
     observation = Observation.objects.get(id=observation_id)
     categorys_observation_doesnt_have = Category.objects.exclude(id__in = observation.categorys.all().values_list('id'))
@@ -35,17 +43,20 @@ def observations_detail(request, observation_id):
   })
 
 # ASSOCIATING OBSERVATION WITH CATEGORY
+@login_required
 def assoc_category(request, observation_id, category_id):
   Observation.objects.get(id=observation_id).categorys.add(category_id)
   return redirect('detail', observation_id=observation_id)
 
 
 # DELETING CATEGORY FROM ASSOCIATED OBSERVATION
+@login_required
 def assoc_category_delete(request, observation_id, category_id):
   Observation.objects.get(id=observation_id).categorys.remove(category_id)
   return redirect('detail', observation_id=observation_id)
 
 # PHOTO UPLOAD
+@login_required
 def add_photo(request, observation_id):
     # photo-file will be the "name" attribute on the <input type="file">
     # attempt to collect the photo file data
@@ -74,38 +85,73 @@ def add_photo(request, observation_id):
     return redirect('detail', observation_id=observation_id)
   # need a unique "key" for S3 / needs image file extension too 
 
-class ObservationCreate(CreateView):
-  model = Observation
-  fields = ['name', 'sciname', 'amount', 'date', 'location', 'description', 'details']
+def signup(request):
+  error_message = ''
+   # check if the request method is post
+  if request.method == 'POST':
+    # This is how to create a 'user' form object
+    # that includes the data from the browser
+    # create a new user because from was submitted
+    # use the form data from the request to create a form/model instance from the model from
+    form = UserCreationForm(request.POST)
+    # validate the form to ensure it was complete
+    if form.is_valid():
+      # saving the user object to the database
+      # This will add the user to the database
+      user = form.save()
+      # login the user (creates a session for the logged in user in the database)
+      # This is how we log a user in via code
+      login(request, user)
+      # redirect user to cats index page
+      return redirect('index')
+    # if form not valid redirect user to signup page with an error message
+    else:
+      error_message = 'Invalid sign up - try again'
+  # A bad POST or a GET request, so render signup.html with an empty form
+  # else the request is GET == the user clicked on the signup link
+  # create a blank instance of the model form
+  form = UserCreationForm()
+  # provide that form instance to a registration template
+  context = {'form': form, 'error_message': error_message}
+  # render the template so the user can fill out the form
+  return render(request, 'registration/signup.html', context)
+
+class ObservationCreate(LoginRequiredMixin, CreateView):
+    model = Observation
+    fields = ['name', 'sciname', 'amount', 'date', 'location', 'description', 'details']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
-class ObservationUpdate(UpdateView):
+class ObservationUpdate(LoginRequiredMixin, UpdateView):
   model = Observation
   # Let's disallow the renaming of a cat by excluding the name field!
   fields = ['name', 'sciname', 'amount', 'date', 'location', 'description', 'details']
 
-class ObservationDelete(DeleteView):
+class ObservationDelete(LoginRequiredMixin, DeleteView):
   model = Observation
   success_url = '/observations/'
 
-class CategoryList(ListView):
+class CategoryList(LoginRequiredMixin, ListView):
   model = Category
   template_name = 'categorys/index.html'
 
-class CategoryDetail(DetailView):
+class CategoryDetail(LoginRequiredMixin, DetailView):
   model = Category
   template_name = 'categorys/detail.html'
 
-class CategoryCreate(CreateView):
+class CategoryCreate(LoginRequiredMixin, CreateView):
     model = Category
     fields = ['classification']
 
 
-class CategoryUpdate(UpdateView):
+class CategoryUpdate(LoginRequiredMixin, UpdateView):
     model = Category
     fields = ['classification']
 
 
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin, DeleteView):
     model = Category
     success_url = '/categorys/'
