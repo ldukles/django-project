@@ -1,6 +1,7 @@
 
 from django.urls import path
 from . import views
+from .views import SearchResultsView
 from django.contrib.auth.forms import UserCreationForm
 
 urlpatterns = [
@@ -22,4 +23,5 @@ urlpatterns = [
     path('categorys/<int:pk>/delete/', views.CategoryDelete.as_view(), name='categorys_delete'),
     path('observations/<int:observation_id>/add_photo/', views.add_photo, name='add_photo'),
     path('accounts/signup/', views.signup, name='signup'),
+    path("search/", SearchResultsView.as_view(), name="search_results"),
 ]

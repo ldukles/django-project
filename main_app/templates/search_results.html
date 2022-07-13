@@ -1,0 +1,16 @@
+<h1>Search Results</h1>
+
+<ul>
+  {% for observation in object_list %}
+    <a>
+      <a href="{% url 'detail' observation.id %}">{{ observation.name }}, {{ observation.sciname }}, {{ observation.amount }}, {{ observation.description }}, {{ observation.details }}</a>
+    </li>
+  {% endfor %}
+</ul>
+<ul>
+  {% for category in object_list %}
+    <a>
+      <a href="{% url 'detail' category.id %}">{{ category.classification }}</a>
+    </li>
+  {% endfor %}
+</ul>

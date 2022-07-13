@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .forms import LocationForm
+from django.db.models import Q
 import uuid
 import boto3
 from .models import Observation, Category, Photo
@@ -170,3 +171,14 @@ class CategoryUpdate(LoginRequiredMixin, UpdateView):
 class CategoryDelete(LoginRequiredMixin, DeleteView):
     model = Category
     success_url = '/categorys/'
+
+class SearchResultsView(LoginRequiredMixin, ListView):
+    model = Observation
+    template_name = "search_results.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        object_list = Observation.objects.filter(
+            Q(name__icontains=query)
+        )
+        return object_list

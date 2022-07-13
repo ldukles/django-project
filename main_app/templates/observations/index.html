@@ -3,6 +3,10 @@
 
 <h1>Observations</h1>
 
+<form action="{% url 'search_results' %}" method="get">
+    <input name="q" type="text" placeholder="Search...">
+  </form>
+
 {% for observation in observations %}
 <div class="card">
     <a href="{% url 'detail' observation.id %}">
