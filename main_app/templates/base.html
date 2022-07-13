@@ -29,7 +29,6 @@
           </ul>
           <ul class="right">
             <li><a href="{% url 'about' %}">About</a></li>
-            <!-- <li><a href="{% url 'index' %}">All Observations</a></li> -->
             {% if user.is_authenticated %}
             <li><a href="{% url 'observations_create' %}">Add An Observation</a></li>
             <li><a href="{% url 'index' %}">My Observations</a></li>
