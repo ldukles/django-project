@@ -32,19 +32,19 @@ def observations_index(request):
     observations = Observation.objects.filter(user=request.user)
     return render(request, 'observations/index.html', { 'observations': observations })
 
-# # ALL OBSERVATION INDEX
-# def allobservations_index(request):
-#     observations = Observation.objects.all()
-#     return render(request, 'allobservations/observations.html', { 'observations': observations })
+# ALL OBSERVATION INDEX
+def allobservations_index(request):
+    observations = Observation.objects.all()
+    return render(request, 'allobservations/observations.html', { 'observations': observations })
 
-# def allobservations_detail(request, observation_id):
-#     observation = Observation.objects.get(id=observation_id)
-#     location_form = LocationForm()
-#     categorys_observation_doesnt_have = Category.objects.exclude(id__in = observation.categorys.all().values_list('id'))
-#     return render(request, 'allobservations/detail.html', {
-#         'observation': observation, 'location_form': location_form,
-#         'categorys': categorys_observation_doesnt_have
-#   })
+def allobservations_detail(request, observation_id):
+    observation = Observation.objects.get(id=observation_id)
+    location_form = LocationForm()
+    categorys_observation_doesnt_have = Category.objects.exclude(id__in = observation.categorys.all().values_list('id'))
+    return render(request, 'allobservations/detail.html', {
+        'observation': observation, 'location_form': location_form,
+        'categorys': categorys_observation_doesnt_have
+  })
 
 # INDIVDUAL OBSERVATION DETAIL
 @login_required
@@ -98,7 +98,7 @@ def add_photo(request, observation_id):
         # take the exchanged url and save it to the database
         url = f"{S3_BASE_URL}{BUCKET}/{key}"
           # 1. create photo instance with phot model and provide cat_id as foreign key value
-        photo = Photo(url=url, cat_id=observation_id)
+        photo = Photo(url=url, observation_id=observation_id)
           # 2. save the photo instance to the database
         photo.save()
       # print an error message
