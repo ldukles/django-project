@@ -8,10 +8,9 @@
     <a href="{% url 'detail' observation.id %}">
   <div class="card-content">
     <span class="card-title">{{ observation.name }}</span>
-    <p>Scientific Name: {{ observation.sciname }}</p>
-    <p>Amount: {{ observation.amount }}</p>
-    <p>Description: {{ observation.description }}</p>
-    <p>Details: {{ observation.details }}</p>
+    {% for photo in observation.photo_set.all %}
+<img class="responsive-img card-panel" src="{{photo.url}}" />
+{% endfor %}
   </div>
 </a>
 </div>

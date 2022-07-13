@@ -9,7 +9,7 @@
 
 <form action="" method="POST">
   {% csrf_token %}
-  <input type="submit" value="Yes - Delete!" class="btn" />
+  <input type="submit" value="Yes - Delete!" class="btn teal darken-4" />
   <a href="{% url 'detail' observation.id %}">Cancel</a>
 </form>
 {% endblock %}

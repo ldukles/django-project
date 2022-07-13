@@ -94,13 +94,16 @@ class Location(models.Model):
 
     observation = models.ForeignKey(Observation, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.get_state_display()} on {self.date}"
+
     class Meta:
         ordering = ['-date']
 
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)
-    cat = models.ForeignKey(Observation, on_delete=models.CASCADE)
+    observation = models.ForeignKey(Observation, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Photo for observation_id: {self.observation_id} @{self.url}"
