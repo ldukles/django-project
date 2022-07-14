@@ -32,10 +32,10 @@ def observations_index(request):
     observations = Observation.objects.filter(user=request.user)
     return render(request, 'observations/index.html', { 'observations': observations })
 
-# ALL OBSERVATION INDEX
-def observations_index(request):
-    observations = Observation.objects.all()
-    return render(request, 'observations/index.html', { 'observations': observations })
+# # ALL OBSERVATION INDEX
+# def observations_index(request):
+#     observations = Observation.objects.all()
+#     return render(request, 'observations/index.html', { 'observations': observations })
 
 # def allobservations_detail(request, observation_id):
 #     observation = Observation.objects.get(id=observation_id)
