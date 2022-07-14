@@ -8,8 +8,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('observations/', views.observations_index, name='index'),
-    # path('allobservations/', views.allobservations_index, name='index'),
-    # path('allobservations/<int:observation_id>/', views.allobservations_detail, name='detail'),
     path('observations/<int:observation_id>/', views.observations_detail, name='detail'),
     path('observations/create/', views.ObservationCreate.as_view(), name='observations_create'),
     path('observations/<int:pk>/update/', views.ObservationUpdate.as_view(), name='observations_update'),
@@ -25,4 +23,6 @@ urlpatterns = [
     path('observations/<int:observation_id>/add_photo/', views.add_photo, name='add_photo'),
     path('accounts/signup/', views.signup, name='signup'),
     path("search/", SearchResultsView.as_view(), name="search_results"),
+    # path('allobservations/', views.observations_index, name='index'),
+    # path('allobservations/<int:observation_id>/', views.observations_detail, name='detail'),
 ]

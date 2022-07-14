@@ -1,19 +1,32 @@
-
+{% extends 'base.html' %} {% block content %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
     <title>About</title>
   </head>
   <body>
-     
-{% extends 'base.html' %} {% block content %}
 
-<h1>Naturalist</h1>
-<p>Was created as a way to keep track of natural history observations and give back to the scientific community</p>
 
-{% endblock %}
+    <h1>Naturalist</h1>
+    <p>
+      Was created as a way to keep track of natural history observations and
+      give back to the scientific community
+    </p>
+    <div class="container">
+      <p><img src="https://i.imgur.com/BcelCDG.jpg" /></p>
+      <p><img src="https://i.imgur.com/2WTtnNE.jpg" /></p>
+      <p><img src="https://i.imgur.com/rRt8Fzi.jpg" /></p>
+      <p><img src="https://i.imgur.com/E7O1Fws.jpg" /></p>
+      <p><img src="https://i.imgur.com/CYrxXbC.jpg" /></p>
+    </div>
+    {% endblock %}
   </body>
 </html>
