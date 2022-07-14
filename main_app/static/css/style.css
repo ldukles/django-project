@@ -31,25 +31,14 @@ footer {
     width: 100%;
     top: 0;
   }
-
-
-  .content2 {
-    background: rgba(0, 0, 0, 0.5);
-    color: #f9fbf5;
+/* 
+.col s2 img {
+    height: 100%;
     width: 100%;
-    top: 0;
-    margin: 10px;
-    padding: 10px, 10px, 10px, 10px;
-  } 
+} */
+
 .card .responsive-img {
     display: flex;
     justify-content: center;
 }
 
-.background {
-    background-image: url("https://i.imgur.com/BcelCDG.jpg");
-    background-repeat: no-repeat;
-    background-size: 50%;
-    background-attachment: fixed;
-    background-position: bottom right;
-}
