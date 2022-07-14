@@ -6,10 +6,10 @@ A full CRUD django web application that allows users to upload and keep track of
 
 
 ## Screenshots
-<!-- <img src="https://i.imgur.com/9idawp7.png" alt="Login"/>
-<img src="https://i.imgur.com/xONbSGb.png" alt="Dashboard"/>
-<img src="https://i.imgur.com/8oyH5iJ.png" alt="All Jobs"/>
-<img src="https://i.imgur.com/EO2rM7F.png" alt="New form"/> -->
+<img src="https://i.imgur.com/JPMJxXk.png" alt="Home Page"/>
+<img src="https://i.imgur.com/ACrHzAl.png" alt="add observation"/>
+<img src="https://i.imgur.com/Ou2xJ0c.png" alt="details"/>
+<img src="https://i.imgur.com/4L0nn8q.png" alt="Classification"/>
 
 ## Table of Contents
 * [Technologies Used](#technologiesused)
@@ -53,6 +53,7 @@ A full CRUD django web application that allows users to upload and keep track of
 * Allow the user to see everyones observations
 * Allow user to add comments to others observations
 * Add access to an API showing exact observation pinpoint on map
+* Add time to observations
 
 ## <a name="deployment"></a>Deployed Link
 [Heroku](https://naturalist-avatar.herokuapp.com/)
@@ -62,3 +63,5 @@ A full CRUD django web application that allows users to upload and keep track of
 
 
 ## Works Cited:
+* https://Materializecss.com
+* https://www.djangoproject.com/
