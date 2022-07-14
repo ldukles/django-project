@@ -32,19 +32,14 @@ def observations_index(request):
     observations = Observation.objects.filter(user=request.user)
     return render(request, 'observations/index.html', { 'observations': observations })
 
-# # ALL OBSERVATION INDEX
-# def observations_index(request):
-#     observations = Observation.objects.all()
-#     return render(request, 'observations/index.html', { 'observations': observations })
+# ALL OBSERVATION INDEX
+def allobservations(request):
+    observations = Observation.objects.all()
+    return render(request, 'allobservations/index.html', { 'observations': observations })
 
-# def allobservations_detail(request, observation_id):
-#     observation = Observation.objects.get(id=observation_id)
-#     location_form = LocationForm()
-#     categorys_observation_doesnt_have = Category.objects.exclude(id__in = observation.categorys.all().values_list('id'))
-#     return render(request, 'observations/detail.html', {
-#         'observation': observation, 'location_form': location_form,
-#         'categorys': categorys_observation_doesnt_have
-#   })
+def allobservations_detail(request, observation_id):
+    observation = Observation.objects.get(id=observation_id)
+    return render(request, 'observations/detail.html', {'observation': observation})
 
 # INDIVDUAL OBSERVATION DETAIL
 @login_required

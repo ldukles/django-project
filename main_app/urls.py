@@ -9,6 +9,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('observations/', views.observations_index, name='index'),
     path('observations/<int:observation_id>/', views.observations_detail, name='detail'),
+    path('allobservations/', views.allobservations, name='allobservations_index'),
+    path('allobservations/<int:observation_id>/', views.allobservations_detail, name='allobservations_detail'),
     path('observations/create/', views.ObservationCreate.as_view(), name='observations_create'),
     path('observations/<int:pk>/update/', views.ObservationUpdate.as_view(), name='observations_update'),
     path('observations/<int:pk>/delete/', views.ObservationDelete.as_view(), name='observations_delete'),
@@ -23,6 +25,5 @@ urlpatterns = [
     path('observations/<int:observation_id>/add_photo/', views.add_photo, name='add_photo'),
     path('accounts/signup/', views.signup, name='signup'),
     path("search/", SearchResultsView.as_view(), name="search_results"),
-    # path('allobservations/', views.observations_index, name='index'),
-    # path('allobservations/<int:observation_id>/', views.observations_detail, name='detail'),
+
 ]
