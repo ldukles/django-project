@@ -64,5 +64,6 @@ A full CRUD django web application that allows users to upload and keep track of
 
 
 ## Works Cited:
+* Dave packard for the guidance on a global views page
 * https://Materializecss.com
 * https://www.djangoproject.com/
