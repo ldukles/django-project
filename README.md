@@ -6,7 +6,7 @@ A full CRUD django web application that allows users to upload and keep track of
 
 
 ## Screenshots
-<img src="https://i.imgur.com/JPMJxXk.png" alt="Home Page"/>
+<img src="https://i.imgur.com/ZzHCNab.png" alt="Home Page"/>
 <img src="https://i.imgur.com/ACrHzAl.png" alt="add observation"/>
 <img src="https://i.imgur.com/Ou2xJ0c.png" alt="details"/>
 <img src="https://i.imgur.com/4L0nn8q.png" alt="Classification"/>
@@ -21,11 +21,12 @@ A full CRUD django web application that allows users to upload and keep track of
 ## <a name="technologiesused"></a>Technologies Used
 * Django
 * Python
-* HTML/CSS
+* SQL
 * Materialize
 * JavaScript
 * AWS
 * Heroku
+* HTML/CSS
 
 
 ## Features
@@ -37,6 +38,7 @@ A full CRUD django web application that allows users to upload and keep track of
 * Users can delete personal natural history observations
 * Users can upload pictures with their observations
 * Users can search through their observations
+* Users can see everyones observations whether logged in or not
 * Users can logout when finished
 
 ## Wireframe
@@ -50,8 +52,7 @@ A full CRUD django web application that allows users to upload and keep track of
 
 
 ## <a name="futureenhancements"></a>Future Enhancements
-* Allow the user to see everyones observations
-* Allow user to add comments to others observations
+* Allow user to add comments/suggestions to others observations
 * Add access to an API showing exact observation pinpoint on map
 * Add time to observations
 
