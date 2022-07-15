@@ -67,3 +67,4 @@ A full CRUD django web application that allows users to upload and keep track of
 * Dave packard for the guidance on a global views page
 * https://Materializecss.com
 * https://www.djangoproject.com/
+* https://www.pexels.com/
