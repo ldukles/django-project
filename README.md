@@ -55,6 +55,7 @@ A full CRUD django web application that allows users to upload and keep track of
 * Allow user to add comments/suggestions to others observations
 * Add access to an API showing exact observation pinpoint on map
 * Add time to observations
+* Add profile customization
 
 ## <a name="deployment"></a>Deployed Link
 [Heroku](https://naturalist-avatar.herokuapp.com/)
